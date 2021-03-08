@@ -1,0 +1,15 @@
+{
+  "name": "docs",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/facethedawn/docs.git",
+  "author": "Joker <dawn_gill@163.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "vuepress": "^1.8.2"
+  },
+  "scripts": {
+    "start": "vuepress dev docs",
+    "docs:build": "vuepress build docs"
+  }
+}
