@@ -1,7 +1,3 @@
----
-sidebar: auto
-sidebarDepth: 3
----
 # JavaSctipt高级程序设计
 ## 1、什么是JavaScript
 ### 1.2 JavaScript实现
@@ -281,6 +277,262 @@ console.log(genericSymbol == otherGenericSymbol); // false
 console.log(fooSymbol == otherFooSymbol); // false
 ```
 ##### 使用全局符号注册表
+`Symbol.for()` 在全局符号注册表中创建并重用符号
+`Symbol.keyFor()` 查询全局注册表
+
+```js
+// 创建全局符号
+let s = Symbol.for('foo');
+console.log(Symbol.keyFor(s)); // foo
+// 创建普通符号
+let s2 = Symbol('bar');
+console.log(Symbol.keyFor(s2)); // undefined
+
+Symbol.keyFor(123); // TypeError: 123 is not a symbol
+```
+
+#### Object 类型
+对象就是一组数据和功能的集合。
+```js
+let o = new Object();
+```
+ECMAScript 中的 Object 是派生其他对象的基类。
+
+每个 Object 实例都有如下属性和方法:
+
+* constructor：用于创建当前对象的函数。
+* hasOwnProperty(propertyName)：用于判断当前对象实例（不是原型）上是否存在给定的属性。
+* isPrototypeOf(object)：用于判断当前对象是否为另一个对象的原型。
+* propertyIsEnumerable(propertyName)：用于判断给定的属性是否可以使用 for-in 语句枚举。
+* toLocaleString()：返回对象的字符串表示，该字符串反映对象所在的本地化执行环境。
+* toString()：返回对象的字符串表示。
+* valueOf()：返回对象对应的字符串、数值或布尔值表示。
+
+### 3.5 操作符
+#### 一元操作符
+只操作一个值的操作符叫一元操作符。
+##### 递增/递减操作符
+前缀版和后缀版
+##### 一元加和减
+(+)(-)
+
+#### 位操作符
+
+#### 布尔操作符
+##### 逻辑非
+(!)
+##### 逻辑与
+(&&)
+##### 逻辑或
+(||)
+
+#### 乘性操作符
+##### 乘法操作符
+(*)
+##### 除法操作符
+(/)
+##### 取模操作符
+(%)
+
+#### 指数操作符
+Math.pow()现在有了自己的操作符**。ES7新增。
+```js
+console.log(Math.pow(3, 2); // 9
+console.log(3 ** 2); // 9
+console.log(Math.pow(16, 0.5); // 4
+console.log(16** 0.5); // 4
+```
+
+#### 加性操作符
+##### 加法操作符
+(+)
+##### 减法操作符
+(-)
+
+#### 关系操作符
+(>)(>)(<=)(>=)
+
+#### 相等操作符
+##### 等于和不等于
+##### 全等和不全等
+> 推荐全等和不全等，有助于在代码中保持数据类型的完整性。
+
+#### 条件操作符
+三元操作
+
+#### 赋值操作符
+#### 逗号操作符
+
+### 语句
+#### if 语句
+#### do-while 语句
+do-while 语句是一种**后测试循环语句**，即循环体中的代码执行后才会对退出条件进行求值。换句话说，循环体内的代码**至少执行一次。**
+```js
+let i = 0;
+do {
+  i += 2;
+} while (i < 10);
+```
+#### while 语句
+while 语句是一种**先测试循环语句**，即先检测退出条件，再执行循环体内的代码。因此，while 循环体内的代码**有可能不会执行**。
+```js
+let i = 0;
+while (i < 10) {
+  i += 2;
+}
+```
+#### for 语句
+其实就是 while 循环。
+#### for-in 语句
+for-in 语句是一种严格的迭代语句，用于枚举对象中的非符号键属性。
+```js
+for (const propName in window) {
+  document.write(propName);
+}
+```
+#### for-of 语句
+for-of 语句是一种严格的迭代语句，用于遍历可迭代对象的元素。
+```js
+for (const el of [2,4,6,8]) {
+  document.write(el);
+}
+```
+#### 标签语句
+#### break 和continue 语句
+#### with 语句
+#### switch 语句
+
+### 3.7 函数
+
+## 4、变量、作用域与内存
+### 原始值与引用值
+ECMAScript 变量可以包含两种不同类型的数据：原始值和引用值。基本数据类型是**按值访问**，对象是**按引用访问**。值类型保存在内存栈中，引用类型保存在内存堆中；
+
+#### 动态属性
+原始值不能有属性。只有引用值可以动态添加后面可以使用的属性。
+
+#### 复制值
+在通过变量把一个原始值赋值到另一个变量时，原始值会被复制到新变量的位置。
+
+在把引用值从一个变量赋给另一个变量时，存储在变量中的值也会被复制到新变量所在的位置。区别在于，这里复制的值实际上是一个指针，它指向存储在堆内存中的对象。操作完成后，两个变量实际上指向同一个对象，因此一个对象上面的变化会在另一个对象上反映出来
+
+#### 传递参数
+ECMAScript 中所有函数的参数都是按值传递的。
+```js
+function addTen(num) {
+  num += 10;
+  return num;
+}
+let count = 20;
+let result = addTen(count);
+console.log(count); // 20，没有变化
+console.log(result); // 30
+```
+```js
+function setName(obj) {
+  obj.name = "Nicholas";
+}
+let person = new Object();
+setName(person);
+console.log(person.name); // "Nicholas"
+```
+```js
+function setName(obj) {
+obj.name = "Nicholas";
+obj = new Object();
+obj.name = "Greg";
+}
+let person = new Object();
+setName(person);
+console.log(person.name); // "Nicholas"
+```
+> ECMAScript中的函数是局部变量。
+
+#### 确定类型
+确定一个值是什么类型的对象需要使用 instanceof 操作符
+```js
+console.log(person instanceof Object); // 变量person 是Object 吗？
+console.log(colors instanceof Array); // 变量colors 是Array 吗？
+console.log(pattern instanceof RegExp); // 变量pattern 是RegExp 吗？
+```
+### 执行上下文和作用域
+变量或函数的上下文决定了它们可以访问哪些数据，以及它们的行为。每个上下文都有一个关联的变量对象（variable object），而这个上下文中定义的所有变量和函数都存在于这个对象上。虽然无法通过代码访问变量对象，但后台处理数据会用到它。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -329,8 +581,32 @@ behavior: 'smooth'
 #### 系统对话框
 `alert()`、`comfirm()`、`prompt()`
 
+### location 对象
+它既是 window 的属性， 也是 document 的属性。也就是说，
+ `window.location` 和 `document.location` 指向同一个对象。
 
+#### 操作地址
+```js
+location.assign("http://www.wrox.com");
+window.location = "http://www.wrox.com";
+location.href = "http://www.wrox.com"; //最常用
+```
 
+#### navigator 对象
+
+#### history 对象
+```js
+// 后退一页
+history.go(-1);
+// 前进一页
+history.go(1);
+// 后退一页
+history.back();
+// 前进一页
+history.forward();
+// 历史记录的数量
+history.length
+```
 
 
 
