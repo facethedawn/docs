@@ -1,3 +1,7 @@
+---
+sidebar: auto
+sidebarDepth: 3
+---
 # JavaSctipt高级程序设计
 ## 1、什么是JavaScript
 ### 1.2 JavaScript实现
@@ -283,7 +287,7 @@ console.log(fooSymbol == otherFooSymbol); // false
 
 
 
-## BOM
+## 12、BOM
 ### window对象
 window 对象在浏览器中有两重身份，一个是ECMAScript 中的Global对象，另一个就是浏览器窗口的JavaScript 接口。
 #### 窗口位置和像素比
@@ -291,12 +295,39 @@ window 对象在浏览器中有两重身份，一个是ECMAScript 中的Global�
 console.log(window.devicePixelRatio); //1
 ```
 #### 窗口大小
-* innerWidth
-* innerHeight
-* outerWidth
-* outerHeight
+* innerWidth 浏览器视口
+* innerHeight 浏览器视口
+* outerWidth 浏览器自身
+* outerHeight 浏览器自身
 
+`document.documentElement.clientWidth` 和 `document.documentElement.clientHeight` 返回视口的宽度和高度。
 
+#### 视口位置
+`window.pageXoffset` / `window.scrollX` 和 `window.pageYoffset` / `window.scrollY`
+
+`scroll()`、`scrollTo()` 和 `scrollBy() `
+```js
+// 正常滚动
+window.scrollTo({
+left: 100,
+top: 100,
+behavior: 'auto'
+});
+// 平滑滚动
+window.scrollTo({
+left: 100,
+top: 100,
+behavior: 'smooth'
+});
+```
+#### 导航与打开新窗口
+`window.open()` 方法可以用于导航到指定URL，也可以用于打开新浏览器窗口。
+
+#### 定时器
+`setTimeout()`和`setInterval()`
+
+#### 系统对话框
+`alert()`、`comfirm()`、`prompt()`
 
 
 
