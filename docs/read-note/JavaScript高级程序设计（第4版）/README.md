@@ -487,13 +487,125 @@ JavaScript 是使用垃圾回收的语言，也就是说执行环境负责在代
 引用值（或者对象）是某个特定**引用类型**的实例。
 
 ### 5.1 Date
+```js
+let now = new Date();
+```
+#### 继承的方法
+Date 类型重写了 toLocaleString() 、toString() 和 valueOf() 方法。
+```js
+console.log(now); // Thu Mar 11 2021 11:43:44 GMT+0800 (中国标准时间)
 
+console.log(now.toLocaleString()); //2021/3/11上午11:43:44
 
+console.log(now.toString()); //Thu Mar 11 2021 11:43:44 GMT+0800 (中国标准时间)
 
+console.log(now.valueOf()); //1615434224744 (当前时间的毫秒数)
+```
 
+### 5.2 RegExp
+### 5.3 原始值包装类型 *
+```js
+let value = "25";
+let number = Number(value); // 转型函数
+console.log(typeof number); // "number"
+let obj = new Number(value); // 构造函数
+console.log(typeof obj); // "object"
+```
+#### Boolean
+Boolean 是对应布尔值的引用类型。要创建一个Boolean 对象，就使用Boolean 构造函数并传入true 或false。
+```js
+let booleanObject = new Boolean(true);
+```
+理解原始布尔值和 Boolean 对象之间的区别非常重要，强烈建议永远不要使用后者。
 
+#### Number
+Number 是对应数值的引用类型。要创建一个 Number 对象，就使用 Number 构造函数并传入一个数值。
+```js
+let numberObject = new Number(10);
+```
+toFixed() 方法返回包含指定小数点位数的数值字符串。
+```js
+let num = 10;
+console.log(num.toFixed(2)); // "10.00"
+```
 
+#### String
+String 是对应字符串的引用类型。要创建一个 String 对象，使用 String 构造函数并传入一个数值。
+```js
+let stringObject = new String("hello world");
+```
+length 属性。表示字符串中字符的数量。
+```js
+let stringValue = "hello world";
+console.log(stringValue.length); // "11"
+```
+##### 字符串操作方法
+concat() 方法用于将一个多多个字符串拼成一个新字符串。
+```js
+let stringValue = "hello ";
+let result = stringValue.concat("world");
+console.log(result); // "hello world"
+console.log(stringValue); // "hello"
+```
+而且多数情况下，对于拼接多个字符串来说，使用加号更方便。
 
+ECMAScript 提供了3 个从字符串中提取子字符串的方法：slice()、substr()和substring()。这3个方法都返回调用它们的字符串的一个子字符串，而且都接收一或两个参数
+
+##### 字符串的位置方法
+有两个方法用于在字符串中定位子字符串：indexOf() 和 lastIndexOf()
+
+##### 字符串包含方法
+ECMAScript 6 增加了3 个用于判断字符串中是否包含另一个字符串的方法：startsWith()、endsWith() 和 includes()
+
+##### trim()方法
+这个方法会创建字符串的一个副本，删除前、后所有空格符，再返回结果。trimLeft() 和trimRight() 方法分别用于从字符串开始和末尾清理空格符。
+
+##### repeat()方法
+这个方法接收一个整数参数，表示要将字符串复制多少次，然后返回拼接所有副本后的结果
+```js
+let stringValue = "na ";
+console.log(stringValue.repeat(16) + "batman");
+// na na na na na na na na na na na na na na na na batman
+```
+
+##### padStart() 和 padEnd() 方法
+padStart()和padEnd()方法会复制字符串，如果小于指定长度，则在相应一边填充字符，直至满足长度条件。这两个方法的第一个参数是长度，第二个参数是可选的填充字符串
+```js
+let stringValue = "foo";
+console.log(stringValue.padStart(6)); // " foo"
+console.log(stringValue.padStart(9, ".")); // "......foo"
+console.log(stringValue.padEnd(6)); // "foo "
+console.log(stringValue.padEnd(9, ".")); // "foo......"
+```
+
+### 5.4 单例内置对象
+
+#### Global
+#### Math
+##### min()和max()方法
+##### 舍入方法
+Math.ceil()、Math.floor()、Math.round()和Math.fround()
+##### random()方法
+Math.random()方法返回一个0~1 范围内的随机数，其中包含0 但不包含1。
+> Math.random()方法在这里出于演示目的是没有问题的。如果是为了加密而需要生成随机数（传给生成器的输入需要较高的不确定性），那么建议使用window.crypto.getRandomValues()。
+
+## 6、集合引用类型
+
+### 6.1 Object
+new 操作符和Object 构造函数和对象字面量（object literal）表示法。
+
+### 6.2 Array
+#### 创建数组
+ES6新增。from() 和of() 。from()用于将类数组结构转换为数组实例，而of()用于将一组参数转换为数组实例。
+```js
+// 字符串会被拆分为单字符数组
+console.log(Array.from("Matt")); // ["M", "a", "t", "t"]
+// Array.from()对现有数组执行浅复制
+const a1 = [1, 2, 3, 4];
+const a2 = Array.from(a1);
+console.log(a1); // [1, 2, 3, 4]
+alert(a1 === a2); // false
+```
 
 
 
